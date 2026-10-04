@@ -1,4 +1,58 @@
 // APPLICATION LOGIC & STATE MACHINE
+const ACCESS_PASSWORD_HASH =
+  "5dbcc94fbcc8c12c2a9c3821b409a4a7fe1b3c2da0d15bff13f14e4ef84afcf1";
+
+async function sha256(text) {
+  const data = new TextEncoder().encode(text);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+
+  return Array.from(new Uint8Array(hashBuffer))
+    .map((byte) => byte.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+function unlockApp() {
+  document.getElementById("access-screen").style.display = "none";
+  document.getElementById("app").classList.remove("locked");
+
+  sessionStorage.setItem("grand-line-access", "true");
+}
+
+async function checkAccessPassword() {
+  const input = document.getElementById("access-password");
+  const error = document.getElementById("access-error");
+
+  const password = input.value;
+  const passwordHash = await sha256(password);
+
+  if (passwordHash === ACCESS_PASSWORD_HASH) {
+    error.classList.remove("visible");
+    unlockApp();
+  } else {
+    error.classList.add("visible");
+    input.value = "";
+    input.focus();
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const button = document.getElementById("access-button");
+  const input = document.getElementById("access-password");
+
+  if (sessionStorage.getItem("grand-line-access") === "true") {
+    unlockApp();
+    return;
+  }
+
+  button.addEventListener("click", checkAccessPassword);
+
+  input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      checkAccessPassword();
+    }
+  });
+});
+
 // State Tracker
 const state = {
     completedIslands: 0, // 0 to 4

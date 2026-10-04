@@ -1,0 +1,168 @@
+@layer base {
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #020c1b;
+    color: #d6e3ff;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+}
+.font-serif-pirate {
+font-family: "Playfair Display", serif;
+}
+.font-cinzel {
+font-family: "Cinzel", serif;
+}
+.font-outfit {
+font-family: "Outfit", sans-serif;
+}
+.parchment-texture {
+background-color: #fbf5e8;
+background-image: radial-gradient(#dfd1b8 1px, transparent 0);
+background-size: 16px 16px;
+}
+.rotate-stamp {
+transform: rotate(-12deg);
+}
+/* Card flip for Memory Game */
+.perspective-1000 {
+perspective: 1000px;
+}
+.transform-style-3d {
+transform-style: preserve-3d;
+}
+.backface-hidden {
+backface-visibility: hidden;
+}
+.rotate-y-180 {
+transform: rotateY(180deg);
+}
+@keyframes pulseGlow {
+0%,
+100% {
+    box-shadow:
+    0 0 25px rgba(212, 175, 55, 0.4),
+    inset 0 0 15px rgba(212, 175, 55, 0.2);
+}
+50% {
+    box-shadow:
+    0 0 45px rgba(212, 175, 55, 0.7),
+    inset 0 0 25px rgba(212, 175, 55, 0.4);
+}
+}
+.pulse-glow-gold {
+animation: pulseGlow 2.5s infinite ease-in-out;
+}
+@keyframes confettiFloat {
+0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+}
+100% {
+    transform: translateY(600px) rotate(360deg);
+    opacity: 0;
+}
+}
+.confetti-piece {
+position: absolute;
+width: 10px;
+height: 14px;
+border-radius: 2px;
+pointer-events: none;
+animation: confettiFloat 4s linear infinite;
+}
+
+.access-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 50% 20%, #1a365d 0%, transparent 60%),
+    #020c1b;
+}
+
+.access-card {
+  width: 100%;
+  max-width: 380px;
+  padding: 32px 24px;
+  border: 1px solid rgba(242, 202, 80, 0.35);
+  border-radius: 24px;
+  background: #0b1b36;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.access-icon {
+  margin-bottom: 16px;
+  color: #f2ca50;
+  font-size: 48px;
+}
+
+.access-card h1 {
+  margin: 0 0 12px;
+  color: #f2ca50;
+  font-family: "Cinzel", serif;
+  font-size: 22px;
+}
+
+.access-card p {
+  margin: 0 0 24px;
+  color: #bac6dc;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.access-card input {
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 14px 16px;
+  border: 2px solid rgba(242, 202, 80, 0.3);
+  border-radius: 12px;
+  outline: none;
+  background: #010814;
+  color: #f2ca50;
+  font-family: "Cinzel", serif;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 0.15em;
+}
+
+.access-card input:focus {
+  border-color: #f2ca50;
+}
+
+.access-card button {
+  width: 100%;
+  padding: 14px 20px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(to right, #d4af37, #f2ca50, #fde68a);
+  color: #2a1f00;
+  cursor: pointer;
+  font-family: "Cinzel", serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.access-card .access-error {
+  display: none;
+  margin: 14px 0 0;
+  color: #ff6b6b;
+  font-size: 12px;
+}
+
+.access-card .access-error.visible {
+  display: block;
+}
+
+#app.locked {
+  display: none;
+}
