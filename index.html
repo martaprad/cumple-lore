@@ -126,7 +126,7 @@
             <img
               alt="Emblema Lorena Grand Line"
               class="w-32 h-32 object-contain relative z-10 drop-shadow-[0_10px_25px_rgba(212,175,55,0.45)]"
-              src="https://lh3.googleusercontent.com/aida/AEtjO1UE41WoZMBYW6k2k9kXF3r04EYFHST7BM5Lf28ryBdjonZM2QI3Qc_jtLdoxiJPb0jQ3Q8rZmL0AvFrqQpaZwv5feQw3U2RNYPD4yeSwOJtc954VcVCDrbgUNZzpheFjKMYYfc74LszwJi8p2CD1XTDz7RW3IG9cOgnwIyenmktncdxChkAq-NDddJBA49tMOx4zMg-OtNn_GfNexcr4fKuEN6BDAkcN_XQZDqv_cESTtiwwwcr_hjbjw"
+              src="./assets/lorena-grand-line-seal.png"
             />
           </div>
           <span
@@ -205,7 +205,7 @@
               >
             </button>
             <span
-              class="font-cinzel text-xs text-primary font-bold tracking-widest uppercase"
+              class="font-cinzel text-xs text-primary font-bold uppercase tracking-widest"
               >REGISTRO DE NAVEGACIÓN</span
             >
           </div>
@@ -259,7 +259,7 @@
                 <img
                   alt="Retrato Pirata Capitana Lorena"
                   class="w-full h-full object-cover"
-                  src="./assets/foto-pasaporte.png"
+                  src="./assets/lorena-grand-line-portrait.png"
                 />
                 <div
                   class="absolute inset-0 bg-[#d4af37]/10 pointer-events-none"
@@ -1144,49 +1144,48 @@
             class="opacity-0 transition-opacity duration-300 flex items-center gap-2 text-primary font-bold"
             id="log-line-4"
           >
-            <span class="animate-pulse">&gt;</span> ¡ACCESO CONCEDIDO! ROMPIENDO
-            EL SELLO...
+            <span>&gt;</span> GRAN RECOMPENSA: PUNTA CANA ALL-INCLUSIVE
           </div>
         </div>
-        <!-- Loading Bar -->
-        <div
-          class="w-full max-w-sm h-2 rounded-full bg-surface-container-lowest mt-6 overflow-hidden border border-primary/20"
-        >
-          <div
-            class="h-full bg-gradient-to-r from-tertiary to-primary transition-all duration-300"
-            id="cinematic-progress"
-            style="width: 0%"
-          ></div>
+        <!-- Action -->
+        <div class="pt-2">
+          <button
+            class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-primary-container via-primary to-yellow-300 text-on-primary font-cinzel font-bold text-base tracking-wider flex items-center justify-center gap-2 shadow-lg active:scale-98 transition-all hover:brightness-110"
+            onclick="goToScreen('screen-reveal')"
+          >
+            <span class="material-symbols-outlined text-[22px]">play_arrow</span>
+            <span>CONTINUAR</span>
+          </button>
         </div>
       </section>
       <!-- ========================================================
-         SCREEN 10: REVEAL FINAL (¡PUNTA CANA!)
+         SCREEN 10: REVELACIÓN DE LA RECOMPENSA
     ======================================================== -->
       <section
-        class="app-screen hidden flex-col justify-between min-h-screen px-5 py-6 relative bg-gradient-to-b from-[#010915] via-[#04142b] to-[#020b18] overflow-hidden"
+        class="app-screen hidden flex-col justify-between min-h-screen px-5 py-6 relative bg-[#020c1b] text-center"
         id="screen-reveal"
       >
-        <!-- Confetti Particles Canvas/Container -->
+        <!-- Header -->
         <div
-          class="absolute inset-0 pointer-events-none z-20 overflow-hidden"
-          id="confetti-container"
-        ></div>
-        <!-- Header Celebration -->
-        <div
-          class="flex items-center justify-between pb-2 border-b border-primary/20 z-10"
+          class="flex items-center justify-between border-b border-surface-container-high pb-3"
         >
-          <span
-            class="font-cinzel text-[11px] text-tertiary font-bold tracking-widest uppercase"
-            >¡MISIÓN CUMPLIDA!</span
+          <button
+            class="text-on-surface-variant hover:text-primary flex items-center gap-1 font-outfit text-xs"
+            onclick="goToScreen('screen-cinematic')"
           >
+            <span class="material-symbols-outlined text-[18px]"
+              >arrow_back</span
+            >
+            Atrás
+          </button>
           <span
-            class="px-2.5 py-0.5 rounded bg-primary text-on-primary font-cinzel text-[10px] font-black uppercase shadow-md"
+            class="font-cinzel text-xs text-primary font-bold uppercase tracking-wider"
+            >REVELACIÓN DE LA RECOMPENSA</span
           >
-            NIVEL 40 ALCANZADO
-          </span>
+          <span class="w-6"></span>
         </div>
         <!-- Content Scrollable Body -->
-        <div class="my-auto py-2 flex flex-col gap-3.5 z-10">
+        <div class="my-auto py-2 flex flex-col gap-3.5">
           <!-- Tropical Paradise Hero Banner -->
           <div
             class="relative w-full h-48 rounded-2xl overflow-hidden shadow-[0_12px_35px_rgba(0,0,0,0.8)] border border-primary/40"
@@ -1194,7 +1193,7 @@
             <img
               alt="Punta Cana Paraíso Tropical Lorena 40"
               class="w-full h-full object-cover"
-              src="./assets/cofre.png"
+              src="./assets/punta-cana-all-inclusive.png"
             />
             <div
               class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"
@@ -1308,9 +1307,9 @@
           </div>
         </div>
         <!-- Action -->
-        <div class="pt-2 z-10">
+        <div class="pt-2">
           <button
-            class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-primary-container via-primary to-yellow-300 text-on-primary font-cinzel font-bold text-base tracking-wider flex items-center justify-center gap-2 shadow-[0_8px_30px_rgba(212,175,55,0.4)] active:scale-98 transition-all hover:brightness-110"
+            class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-primary-container via-primary to-yellow-300 text-on-primary font-cinzel font-bold text-base tracking-wider flex items-center justify-center gap-2 shadow-lg active:scale-98 transition-all hover:brightness-110"
             onclick="goToScreen('screen-crew')"
           >
             <span class="material-symbols-outlined text-[22px]">favorite</span>
@@ -1352,7 +1351,7 @@
             <img
               alt="Sello Grand Line"
               class="w-16 h-16 object-contain drop-shadow"
-              src="https://lh3.googleusercontent.com/aida/AEtjO1UE41WoZMBYW6k2k9kXF3r04EYFHST7BM5Lf28ryBdjonZM2QI3Qc_jtLdoxiJPb0jQ3Q8rZmL0AvFrqQpaZwv5feQw3U2RNYPD4yeSwOJtc954VcVCDrbgUNZzpheFjKMYYfc74LszwJi8p2CD1XTDz7RW3IG9cOgnwIyenmktncdxChkAq-NDddJBA49tMOx4zMg-OtNn_GfNexcr4fKuEN6BDAkcN_XQZDqv_cESTtiwwwcr_hjbjw"
+              src="./assets/lorena-grand-line-seal.png"
             />
             <span
               class="font-cinzel text-xs font-bold text-crimson-seal uppercase tracking-widest"
