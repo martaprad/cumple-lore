@@ -21,11 +21,11 @@ window.LORENA_DATA = {
   gift: {
     destination: 'Punta Cana',
     country: 'República Dominicana',
-    passengers: 'Lorena + acompañante',
+    passengers: 'Lorena, sus tías y amigas del baile',
     kind: 'Resort all-inclusive',
     image: './assets/punta-cana-all-inclusive.png',
-    heading: '¡Te vas de viaje!',
-    message: 'Con tu compañero de aventuras para celebrar tus 40 años.',
+    heading: '¡Rumbo a Punta Cana, capitana!',
+    message: '¡Has conquistado los cinco sellos y descubierto tu tesoro! Te espera una aventura inolvidable en Punta Cana, acompañada de tus tías y amigas del baile. ¡Prepara la maleta, que os esperan el Caribe, muchas risas y un viaje para recordar!',
     finalClue: ''
   },
   challenges: [
@@ -145,6 +145,20 @@ window.LORENA_DATA = {
           authorId: 'alberto',
           reveal: 'Alberto lo dejó claro: «Hay que bajar a defender y sino, pides cambio!».',
           fullText: 'Hay que bajar a defender y sino, pides cambio!'
+        },
+        {
+          id: 'phrase-quieres',
+          prompt: 'Completa la expresión: «¿Tú me…?»',
+          options: [
+            { id: 'aguantas', text: 'Aguantas' },
+            { id: 'quieres', text: 'Quieres' },
+            { id: 'entiendes', text: 'Entiendes' }
+          ],
+          correctId: 'quieres',
+          hint: 'Una pregunta que siempre viene bien hacer, aunque ya sepas la respuesta.',
+          authorId: 'novio',
+          reveal: 'Tu novio recuerda otra de tus frases más características: «¿Tú me quieres?».',
+          fullText: '¿Tú me quieres?'
         }
       ]
     },
@@ -268,11 +282,11 @@ window.LORENA_DATA = {
     },
     {
       id: 'novio',
-      name: 'Tu compañero de aventuras',
+      name: 'Tu compañero de aventuras, aka Pablo',
       relation: 'Tu novio',
       message: 'Te contagia su alegría y ganas de hacer cosas. Puedes contar con ella: te va a escuchar y no te va a juzgar.',
       fullMessage: 'Es una persona muy alegre, que te contagia su alegría y ganas de hacer cosas. Es increíblemente buena para dar argumentos sólidos en cualquier tipo de debate. Se preocupa mucho por la gente y puedes contar con ella para lo que quieras, te va a escuchar y no te va a juzgar. Es una persona muy trabajadora y que además busca el sentido de todo lo que hace, es muy reflexiva y filosófica.',
-      quote: 'No sé si me explico'
+      quote: '¿Tú me quieres?'
     },
     {
       id: 'patri',
