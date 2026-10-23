@@ -8,6 +8,41 @@
   let saved = null;
   try { saved = localStorage.getItem(CORE.STORAGE_KEY); } catch (_) { storageAvailable = false; }
   const game = CORE.createEngine(DATA, saved);
+  const sound = window.LorenaSound;
+
+  // Los sellos recuperados de una partida guardada no vuelven a sonar.
+  const celebratedSeals = new Set(game.state.completed);
+
+  function syncAudio({ opening = false } = {}) {
+    const state = game.state;
+
+    if (state.screen === 'challenge') {
+      const completed = state.completed.includes(
+        state.activeChallenge
+      );
+
+      sound.music(completed ? null : state.activeChallenge);
+      return;
+    }
+
+    if (state.screen === 'intro') {
+      sound.music(opening ? 'opening' : 'map');
+      return;
+    }
+
+    if (state.screen === 'gift') {
+      sound.music('gift');
+      return;
+    }
+
+    if (state.screen === 'crew') {
+      sound.music('crew');
+      return;
+    }
+
+    sound.music('map');
+  }
+
   $('hero-portrait').src = DATA.photos.hero;
   $('hero-portrait').alt = DATA.photos.heroAlt || 'Retrato de Lorena';
   const photos = {};
@@ -76,7 +111,11 @@
     clearConfetti();
     save();
     renderScreen(true);
-    if (screen === 'gift') celebrate();
+    syncAudio();
+    if (screen === 'gift') {
+      sound.effect('chest');
+      celebrate();
+    }
   }
   function renderScreen(focus = false) {
     document.querySelectorAll('.screen').forEach((screen) => { screen.hidden = true; });
@@ -318,7 +357,12 @@
       }
       if (!ui.selected) return;
       if (game.matchPort(current.id, ui.selected)) {
-        ui.portReveal = current.id; ui.error = ''; save(); announce(`¡Correcto! ${current.place}. ${author(current.authorId)} envió este recuerdo.`);
+        sound.effect('correct');
+
+        ui.portReveal = current.id; 
+        ui.error = ''; 
+        save(); 
+        announce(`¡Correcto! ${current.place}. ${author(current.authorId)} envió este recuerdo.`);
       } else { ui.error = 'Ese recuerdo sigue buscando puerto. Prueba con otro.'; announce(ui.error); }
       rerenderChallenge('answer-action');
     }, { id: 'answer-action', 'data-focus': 'answer-action' });
@@ -372,7 +416,9 @@
         rerenderChallenge(); focusNewQuestion('quiz-question'); return;
       }
       if (!ui.selected) return;
-      if (game.answer(challenge.id, question.id, ui.selected)) { ui.error = ''; save(); announce(`¡Correcto! ${question.reveal}`); }
+      if (game.answer(challenge.id, question.id, ui.selected)) { 
+        sound.effect('correct');
+        ui.error = ''; save(); announce(`¡Correcto! ${question.reveal}`); }
       else { ui.error = 'Casi, capitana. Elige otra opción o pide una pista.'; announce(ui.error); }
       rerenderChallenge('answer-action');
     }, { id: 'answer-action', 'data-focus': 'answer-action' });
@@ -431,6 +477,12 @@
     save(); afterCompletion(DATA.challenges.find((c) => c.id === id));
   }
   function afterCompletion(challenge) {
+    sound.music(null);
+    if (!celebratedSeals.has(challenge.id)) {
+      celebratedSeals.add(challenge.id);
+      sound.effect('victory');
+    }
+
     ui = freshUI(); renderScreen();
     $('completion-title')?.focus({ preventScroll: true });
     window.scrollTo({ top: 0, behavior: 'auto' });
@@ -484,7 +536,11 @@
     const pass = node('div', 'boarding-pass parchment');
     pass.append(node('p', 'eyebrow', 'Tu próximo destino'));
     const dl = node('dl');
-    [['Rumbo', `${gift.destination}, ${gift.country}`], ['Viajeras y viajeros', gift.passengers], ['Plan', gift.kind]].forEach(([name, value]) => {
+    [
+      ['Rumbo', `${gift.destination}, ${gift.country}`],
+      ['Tripulación viajera', gift.passengers],
+      ['Plan', gift.kind]
+    ].forEach(([name, value]) => {
       const item = node('div'); item.append(node('dt', '', name), node('dd', '', value)); dl.append(item);
     });
     pass.append(dl); copy.append(pass);
@@ -497,7 +553,7 @@
     if (!game.canReveal()) { go('map'); return; }
     const screen = $('screen-crew');
     screen.replaceChildren(heading('El verdadero tesoro: tu tripulación', 'Por todos los recuerdos que nos quedan',
-      'Esto es lo que tus amigos han contado de ti. Once voces que celebran tu energía, tu curiosidad y esa forma tan tuya de estar en el mundo.', 'crew-title'));
+      'Esto es lo que tus amigos han contado de ti. Muchas voces que celebran tu energía, tu curiosidad y esa forma tan tuya de estar en el mundo.', 'crew-title'));
     const intro = node('div', 'crew-intro');
     const photo = ensurePhoto('finale');
     if (photo.status === 'ready') { const frame = node('div', 'crew-photo'); frame.append(node('img', '', null, { src: photo.src, alt: DATA.photos.finale.alt })); intro.append(frame); }
@@ -536,12 +592,13 @@
     $('confetti-container').append(fragment);
     confettiTimer = window.setTimeout(clearConfetti, 4200);
   }
-  function unlock() {
+  function unlock({ playOpening = false } = {}) {
     $('access-screen').hidden = true;
     $('app').hidden = false;
     $('access-password').value = '';
     try { sessionStorage.setItem('grand-line-access', 'true'); } catch (_) { /* La partida sigue disponible en esta pestaña. */ }
     save(); renderScreen(true);
+    syncAudio({ opening: playOpening });
   }
   $('access-form').addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -553,7 +610,9 @@
       const bytes = new TextEncoder().encode(input.value);
       const digest = await window.crypto.subtle.digest('SHA-256', bytes);
       const hash = Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('');
-      if (hash === window.LORENA_ACCESS_HASH) unlock();
+      if (hash === window.LORENA_ACCESS_HASH) {
+        unlock({ playOpening: true });
+      }
       else { $('access-error').textContent = 'Esa clave no abre la pasarela. Vuelve a intentarlo.'; input.value = ''; input.focus(); }
     } catch (_) {
       $('access-error').textContent = 'Este navegador no puede comprobar la clave aquí. Abre el juego en un navegador actualizado mediante HTTPS o un servidor local.';
@@ -572,9 +631,21 @@
   });
   $('reset-dialog').addEventListener('close', () => { if ($('reset-dialog').returnValue === 'reset') resetGame(); });
   function resetGame() {
-    clearConfetti(); game.reset(); ui = freshUI();
+    sound.stopAll();
+    celebratedSeals.clear();
+
+    clearConfetti(); 
+    game.reset(); 
+    ui = freshUI();
+
     ['map', 'passport', 'challenge', 'gift', 'crew'].forEach((screen) => $(`screen-${screen}`).replaceChildren());
-    save(); renderScreen(true); announce('Partida reiniciada. La aventura vuelve a empezar.');
+
+    save(); 
+    renderScreen(true); 
+    
+    syncAudio({ opening: true });
+
+    announce('Partida reiniciada. La aventura vuelve a empezar.');
   }
   window.addEventListener('pagehide', clearConfetti);
   try { if (sessionStorage.getItem('grand-line-access') === 'true') unlock(); }

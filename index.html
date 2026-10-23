@@ -6,11 +6,13 @@
   <meta name="theme-color" content="#081a27">
   <meta name="description" content="Una aventura de cumpleaños preparada por la tripulación de Lorena.">
   <title>Operación Lorena · El tesoro de los 40</title>
-  <link rel="stylesheet" href="./css/styles.css?v=20261020">
+  <link rel="stylesheet" href="./css/styles.css?v=20261021-2">
+
   <script src="./js/access-config.js?v=20261020" defer></script>
-  <script src="./js/game-data.js?v=20261020" defer></script>
+  <script src="./js/game-data.js?v=20261023-1" defer></script>
   <script src="./js/game-core.js?v=20261020" defer></script>
-  <script src="./js/app.js?v=20261020" defer></script>
+  <script src="./js/audio.js?v=20261021-3" defer></script>
+  <script src="./js/app.js?v=20261023-1" defer></script>
 </head>
 <body>
   <a class="skip-link sr-only" href="#main-content">Saltar al contenido</a>
@@ -38,10 +40,12 @@
         <button id="nav-map" class="btn btn-ghost" type="button">La ruta</button>
         <button id="nav-passport" class="btn btn-ghost" type="button">Pasaporte</button>
         <button id="nav-reset" class="btn btn-ghost" type="button">Reiniciar</button>
+        <button id="audio-toggle" class="btn btn-ghost" type="button" aria-pressed="true">Silenciar</button>
       </nav>
     </header>
     <main id="main-content" class="app-main page-shell" tabindex="-1">
       <p id="storage-notice" class="storage-notice" role="status" hidden></p>
+      <p id="audio-status" class="status-note" role="status" hidden></p>
       <section id="screen-intro" class="screen" aria-labelledby="intro-title" hidden>
         <div class="hero-grid">
           <div class="hero-copy">

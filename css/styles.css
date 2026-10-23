@@ -610,3 +610,8 @@ strong { font-weight: 700; }
   .screen { animation: none; }
   #confetti-container { display: none; }
 }
+@media (max-width: 599px) {
+  .header-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
